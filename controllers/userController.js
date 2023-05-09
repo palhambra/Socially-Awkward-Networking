@@ -4,13 +4,14 @@ module.exports = {
   // GET all users
   async getUsers(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find()
+      .select('-__v');
       res.json(users);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  
+
   // GET single user
   async getSingleUser(req, res) {
     try {
@@ -77,7 +78,7 @@ module.exports = {
   async addFriend(req, res) {
     try {
       const user = await User.findOneAndUpdate(
-        { id: req.params.userId },
+        { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
         { new: true }
         );
@@ -86,6 +87,15 @@ module.exports = {
           return res.status(404).json({ message: 'No user with that ID' })
         }
         
+        const friend = await User.findOneAndUpdate(
+          { _id: req.params.friendId },
+          { $addToSet: { friends: req.params.userId } },
+          { new: true }
+        );
+    
+        if (!friend) {
+          return res.status(404).json({ message: 'No friend with that ID' })
+        }
         res.json(user);
     } catch (err) {
       res.status(500).json(err)
