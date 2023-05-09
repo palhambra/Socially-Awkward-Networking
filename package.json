@@ -2,5 +2,18 @@
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.1.0"
-  }
+  },
+  "name": "socially-awkward-networking",
+  "description": "challenge 18",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  
+  "author": "",
+  "license": "ISC"
+ 
 }
