@@ -62,7 +62,7 @@ module.exports = {
   // Delete thought
   async deleteThought(req, res) {
     try {
-      const thoughts = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+      const thoughts = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
 
       if (!thoughts) {
         return res.status(404).json({ message: 'No thought with that ID' });
